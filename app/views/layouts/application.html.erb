@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>UPCchat</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <script src="https://js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+   Pusher.log = function(message) {
+      if (window.console && window.console.log) {
+        window.console.log(message);
+      }
+    };
+    /*Aca pones el Key*/
+    var pusher = new Pusher('f7cae4c6582928db7698');
+    /*Aca pones el nombre de la aplicación*/
+    var channel = pusher.subscribe('UPCchat');
+    /*El evento que va a activar la función del JS*/
+    channel.bind('message:create', function(data) {
+
+      var message = "<li id='message_" + data.id + "'>"
+      message += data.name + ": " + data.content
+      message += "</li>"
+      $('#chat_container').append(message);
+      /*borrado al campo de texto del mensage*/
+      $('#message_content').val("");
+      /*Para que se posicione en este elemento*/
+      $('#message_content').focus();
+      //alert(data.content);
+    });
+  </script>
+</head>
+<body>
+
+<%= yield %>
+
+</body>
+</html>

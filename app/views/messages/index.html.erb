@@ -1,0 +1,13 @@
+<h1>Chat UPC</h1>
+
+<ul id="chat_container">
+  <% @messages.each do |message| %>
+  <li>
+    <%= message.name %> dijo: <%= message.content %>
+  </li>
+  <% end %>
+</ul>
+
+<br>
+
+<%= render 'form' %>
